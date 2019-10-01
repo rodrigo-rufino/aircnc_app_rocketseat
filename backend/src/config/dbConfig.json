@@ -1,0 +1,3 @@
+{
+    "dbUrl": "mongodb+srv://omnistack:omnistack@omnistack-reclw.mongodb.net/test?retryWrites=true&w=majority"
+}

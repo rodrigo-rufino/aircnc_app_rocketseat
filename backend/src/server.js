@@ -13,6 +13,8 @@ const app = express();
 mongoose.connect(dbConfig.dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
+}).catch( (e) => {
+    console.log(e);
 });
 
 app.use(cors({ }));

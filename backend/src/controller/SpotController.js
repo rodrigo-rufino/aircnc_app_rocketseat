@@ -13,6 +13,10 @@ module.exports = {
 
 
     async store(req, res){
+        if (!req.file) {
+            res.status(400).json({error: "File doesn't exist."})
+        }
+        
         const { filename } = req.file;
         const { company, techs, price } = req.body;
         const { user_id } = req.headers;

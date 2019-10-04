@@ -12,7 +12,9 @@ export default function Login({ navigation }) {
   // executa quando o usuário chega nessa tela
   useEffect(() => {
     AsyncStorage.getItem('user').then((user) => {
-      navigation.navigate('List');
+      if (user) {
+        navigation.navigate('List');
+      }
     });
   }, []);
 

@@ -1,43 +1,73 @@
-import React from 'react';
-import { View, KeyboardAvoidingView, Text, TextInput, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View,KeyboardAvoidingView, Text, TextInput, Image, StyleSheet,
+  TouchableOpacity, AsyncStorage } from 'react-native';
 
+import api from '../services/api';
 import logo from '../assets/logo.png';
 
-export default function Login() {
-    return <KeyboardAvoidingView
-      style={styles.container}
-      keyboardVerticalOffset={0}
-      behavior={'padding'}
-    >
-      <Image source={logo}></Image>
-      
-      <View style={styles.form}>
-        <Text style={styles.label}>SEU E-MAIL *</Text>
-        <TextInput
-          style={styles.input}
-          textContentType="emailAddress"
-          placeholder="Seu E-mail"
-          placeholderTextColor="#999"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
-        ></TextInput>
+export default function Login({ navigation }) {
+  const [email, setEmail] = useState('');
+  const [techs, setTechs] = useState('');
 
-        <Text style={styles.label}>TECNOLOGIAS *</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Tecnologias de Interesse"
-          placeholderTextColor="#999"
-          autoCapitalize="words"
-          autoCorrect={false}          
-        ></TextInput>
+  // executa quando o usuário chega nessa tela
+  useEffect(() => {
+    AsyncStorage.getItem('user').then((user) => {
+      navigation.navigate('List');
+    });
+  }, []);
 
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Encontrar Spots</Text>  
-        </TouchableOpacity>
+  async function handleSubmit() {
+    const response = await api.post('/sessions', {
+      email
+    });
 
-      </View>
-    </KeyboardAvoidingView>;
+    const { _id } = response.data;
+
+    await AsyncStorage.setItem('user', _id);
+    await AsyncStorage.setItem('techs', techs);
+
+    navigation.navigate('List');
+  }
+
+
+  return <KeyboardAvoidingView
+    style={styles.container}
+    keyboardVerticalOffset={0}
+    behavior={'padding'}
+  >
+    <Image source={logo}></Image>
+    
+    <View style={styles.form}>
+      <Text style={styles.label}>SEU E-MAIL *</Text>
+      <TextInput
+        style={styles.input}
+        textContentType="emailAddress"
+        placeholder="Seu E-mail"
+        placeholderTextColor="#999"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoCorrect={false}
+        value={email}
+        onChangeText={text => setEmail(text)}
+      ></TextInput>
+
+      <Text style={styles.label}>TECNOLOGIAS *</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Tecnologias de Interesse"
+        placeholderTextColor="#999"
+        autoCapitalize="words"
+        autoCorrect={false}    
+        value={techs}      
+        onChangeText={techs => setTechs(techs)}
+      ></TextInput>
+
+      <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+        <Text style={styles.buttonText}>Encontrar Spots</Text>  
+      </TouchableOpacity>
+
+    </View>
+  </KeyboardAvoidingView>;
 };
 
 const styles = StyleSheet.create({

@@ -81,16 +81,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 
-  label: {
-    fontWeight: 'bold',
-    color: '#444',
-    marginBottom: 8
-  },
-
   form: {
     alignSelf: 'stretch',
     paddingHorizontal: 30,
     marginTop: 30
+  },
+
+  label: {
+    fontWeight: 'bold',
+    color: '#444',
+    marginBottom: 8
   },
 
   input: {

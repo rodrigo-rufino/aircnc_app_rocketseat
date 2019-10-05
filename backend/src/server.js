@@ -13,6 +13,9 @@ const app = express();
 const server = http.Server(app);
 const io = socketio(server);
 
+io.on('connection', (socket) => {
+    console.log('Usuário conectado', socket.id);
+})
 
 mongoose.connect(dbConfig.dbUrl, {
     useNewUrlParser: true,
@@ -20,6 +23,7 @@ mongoose.connect(dbConfig.dbUrl, {
 }).catch( (e) => {
     console.log(e);
 });
+
 
 app.use(cors({ }));
 app.use(express.json());

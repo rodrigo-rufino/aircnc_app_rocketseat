@@ -13,6 +13,10 @@ export default function Dashboard() {
     const socket = socketio('http://localhost:3333', {
       query: { user_id }
     });
+
+    socket.on('booking_request', (data) => {
+      console.log(data);
+    })
   }, []);
 
   useEffect(() => {

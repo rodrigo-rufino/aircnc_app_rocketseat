@@ -45,7 +45,6 @@ export default function Dashboard() {
   async function handleReject(id) {
     await api.post(`/bookings/${id}/rejections`);
     setRequests(requests.filter( request => request._id !== id));
-
   }
 
   return (

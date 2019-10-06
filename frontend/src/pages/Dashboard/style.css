@@ -32,11 +32,14 @@ ul.spot-list li span {
 
 ul.notifications {
     list-style: none;
-    margin-bottom: 15px;
 }
 
 ul.notifications li {
-    font-size: 16px;
+    border-radius: 4px;
+    padding: 8px;
+    background-color: rgb(231, 231, 231);
+    margin-bottom: 15px;
+    font-size: 14px;
     line-height: 24px;
 }
 
@@ -45,7 +48,7 @@ ul.notifications li button {
     border: 0;
     font-weight: bold;
     margin-top: 10px;
-    background-color: white;
+    background-color: transparent;
     cursor: pointer;
 }
 
